@@ -1,10 +1,10 @@
-import dateutil.parser as parser
 from subprocess import CalledProcessError
 from .base import BaseVCSClient
 
 
 class GitClient(BaseVCSClient):
     base_command = 'git'
+    ISO_FORMAT = '%Y-%m-%d %H:%M:%S'
 
     def is_repository(self):
         try:
@@ -37,7 +37,7 @@ class GitClient(BaseVCSClient):
     def get_date(self):
         iso_format = self._execute_vcs_show('%ci')
         try:
-            return parser.parse(iso_format)
+            return datetime.datetime.strptime(iso_format, self.ISO_FORMAT)
         except:
             return None
 

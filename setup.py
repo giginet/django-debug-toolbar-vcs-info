@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name = "django-debug-toolbar-git-rev",
+    name = "django-debug-toolbar-vcs-rev",
     version = "0.0.1",
-    packages=['git_rev_panel'],
+    packages=['vcs_rev_panel'],
 )

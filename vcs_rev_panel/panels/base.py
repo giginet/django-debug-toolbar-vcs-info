@@ -1,21 +1,28 @@
-from django.utils.translation import ugettext_lazy as _
 from debug_toolbar.panels import Panel
-from .client import GitClient
+from django.utils.translation import ugettext_lazy as _
 
 
-class GitRevisionPanel(Panel):
+class BaseVCSRevisionPanel(Panel):
     title = _('Revision')
     template = 'revision.html'
 
-    def __init__(self, *args, **kwargs):
-        self.client = GitClient()
-        super().__init__(*args, **kwargs)
+    @property
+    def client_class(self):
+        raise NotImplementedError
+
+    @property
+    def client(self):
+        return self.client_class()
 
     @property
     def nav_subtitle(self):
-        if self.client.is_gitdir():
+        if self.client.is_repository():
             return self.client.get_short_hash()
-        return 'git repository is not detected'
+        return 'repository is not detected'
+
+    @property
+    def has_content(self):
+        return self.client.is_repository()
 
     def get_stats(self):
         context = super().get_stats()
@@ -39,5 +46,5 @@ class GitRevisionPanel(Panel):
                                  self.client.get_committer_email())
 
     @staticmethod
-    def _pretty_name(self, name, email):
+    def _pretty_name(name, email):
         return '{}<{}>'.format(name, email)

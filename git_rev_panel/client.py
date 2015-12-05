@@ -20,7 +20,11 @@ class GitClient(object):
     def get_short_hash(self):
         return self._execute_git('rev-parse', '--short', 'HEAD')
 
-    def _execute_git(self, main, *options):
+    def get_current_branch_name(self):
+        return self._execute_git('rev-parse', '--abbrev-ref', 'HEAD')
+
+    @staticmethod
+    def _execute_git(main, *options):
         commands = ['git', main] + list(options)
         raw_data = subprocess.check_output(commands)
         return raw_data.decode()

@@ -1,0 +1,35 @@
+{% load i18n %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td>{% trans 'Hash' %}</td>
+        <td>{{ hash }}</td>
+    </tr>
+    <tr>
+        <td>{% trans 'Short hash' %}</td>
+        <td>{{ short_hash }}</td>
+    </tr>
+    <tr>
+        <td>{% trans 'Branch' %}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{% trans 'Author' %}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{% trans 'Commite message' %}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{% trans 'Updated at' %}</td>
+        <td></td>
+    </tr>
+</table>
+</body>
+</html>

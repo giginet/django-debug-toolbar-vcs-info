@@ -4,7 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 
 class BaseVCSRevisionPanel(Panel):
     title = _('Revision')
-    template = 'revision.html'
 
     @property
     def client_class(self):
@@ -23,6 +22,10 @@ class BaseVCSRevisionPanel(Panel):
     @property
     def has_content(self):
         return self.client.is_repository()
+
+    @property
+    def template(self):
+        return '{}.html'.format(self.client.base_command)
 
     def get_stats(self):
         context = super().get_stats()

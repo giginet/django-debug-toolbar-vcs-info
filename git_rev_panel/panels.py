@@ -1,9 +1,10 @@
+from django.utils.translation import ugettext_lazy as _
 from debug_toolbar.panels import Panel
 from .client import GitClient
 
 
 class GitRevisionPanel(Panel):
-    title = 'Revision'
+    title = _('Revision')
     template = 'revision.html'
 
     def __init__(self, *args, **kwargs):

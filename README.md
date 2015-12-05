@@ -1,0 +1,3 @@
+# django-debug-toolbar-git-revision
+
+Under development...

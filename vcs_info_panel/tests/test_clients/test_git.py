@@ -1,10 +1,8 @@
 import subprocess
 import pytz
-from unittest.mock import patch
-
 import datetime
+from unittest.mock import patch
 from django.test import TestCase
-
 from vcs_info_panel.clients.git import GitClient
 
 

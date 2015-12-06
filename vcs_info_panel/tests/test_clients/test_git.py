@@ -5,6 +5,16 @@ from django.test import TestCase
 from vcs_info_panel.clients.git import GitClient
 
 
+def without_git_repository(func):
+    def inner(*args, **kwargs):
+        with patch('subprocess.check_output') as _check_output:
+            _check_output.side_effect = subprocess.CalledProcessError(128,
+                                                                      ['git', 'rev-parse', '--is-inside-work-tree'],
+                                                                      'fatal: Not a git repository (or any of the parent directories): .git')
+        return func(*args, **kwargs)
+    return inner
+
+
 class GitClientTestCase(TestCase):
     def setUp(self):
         self.client = GitClient()
@@ -22,14 +32,7 @@ class GitClientTestCase(TestCase):
             self.assertEqual(self.client.is_repository(), True)
             _check_output.assert_called_once_with(['git', 'rev-parse', '--is-inside-work-tree'])
 
-    def _patch_without_repository(self, func):
-        with patch('subprocess.check_output') as _check_output:
-            _check_output.side_effect = subprocess.CalledProcessError(128,
-                                                                     ['git', 'rev-parse', '--is-inside-work-tree'],
-                                                                     'fatal: Not a git repository (or any of the parent directories): .git')
-
+    @without_git_repository
     def test_is_repository_without_repository(self):
-        def _func(_check_output):
-            self.assertEqual(self.client.is_repository(), False)
-            _check_output.assert_called_once_with(['git', 'rev-parse', '--is-inside-work-tree'])
-        self._patch_without_repository(_func)
+        self.assertEqual(self.client.is_repository(), True)
+

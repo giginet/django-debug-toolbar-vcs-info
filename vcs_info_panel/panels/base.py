@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class BaseVCSInfoPanel(Panel):
     title = _('Revision')
+    _cached_client = None
 
     @property
     def client_class(self):
@@ -11,7 +12,9 @@ class BaseVCSInfoPanel(Panel):
 
     @property
     def client(self):
-        return self.client_class()
+        if not self._cached_client:
+            self._cached_client = self.client_class()
+        return self._cached_client
 
     @property
     def nav_subtitle(self):
@@ -29,15 +32,16 @@ class BaseVCSInfoPanel(Panel):
 
     def get_stats(self):
         context = super().get_stats()
-        context.update({
-            'short_hash': self.client.get_short_hash(),
-            'hash': self.client.get_hash(),
-            'author': self._get_pretty_author(),
-            'committer': self._get_pretty_committer(),
-            'message': self.client.get_message(),
-            'updated_at': self.client.get_date(),
-            'branch_name': self.client.get_current_branch_name()
-        })
+        if self.client.is_repository():
+            context.update({
+                'short_hash': self.client.get_short_hash(),
+                'hash': self.client.get_hash(),
+                'author': self._get_pretty_author(),
+                'committer': self._get_pretty_committer(),
+                'message': self.client.get_message(),
+                'updated_at': self.client.get_date(),
+                'branch_name': self.client.get_current_branch_name()
+            })
         return context
 
     def _get_pretty_author(self):

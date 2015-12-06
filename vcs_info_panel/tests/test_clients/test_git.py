@@ -62,7 +62,7 @@ class GitClientTestCase(TestCase):
             _check_output.assert_called_once_with(['git', 'rev-parse', '--abbrev-ref', 'HEAD'])
 
     @without_git_repository('git', 'rev-parse', '--abbrev-ref', 'HEAD')
-    def test_get_hash_without_repository(self):
+    def test_get_current_branch_name_without_repository(self):
         self.assertEqual(self.client.get_current_branch_name(), None)
 
     def test_get_author_name(self):
@@ -72,7 +72,7 @@ class GitClientTestCase(TestCase):
             _check_output.assert_called_once_with(['git', 'show', '--format=%an', 'HEAD'])
 
     @without_git_repository('git', 'show', '--format=%an', 'HEAD')
-    def test_get_author_email_without_repository(self):
+    def test_get_author_name_without_repository(self):
         self.assertEqual(self.client.get_author_email(), None)
 
     def test_get_author_email(self):
@@ -92,7 +92,7 @@ class GitClientTestCase(TestCase):
             _check_output.assert_called_once_with(['git', 'show', '--format=%cn', 'HEAD'])
 
     @without_git_repository('git', 'show', '--format=%cn', 'HEAD')
-    def test_get_committer_email_without_repository(self):
+    def test_get_committer_name_without_repository(self):
         self.assertEqual(self.client.get_committer_email(), None)
 
     def test_get_committer_email(self):

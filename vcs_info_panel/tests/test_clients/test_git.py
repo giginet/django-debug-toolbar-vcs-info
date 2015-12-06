@@ -1,5 +1,4 @@
 import subprocess
-import datetime
 import pytz
 from unittest.mock import patch
 

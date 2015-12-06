@@ -101,19 +101,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-# django-debug-toolbar
-def show_debug_toolbar(request):
-    from django.conf import settings
-    if settings.TESTING:
-        return False
-    if not request.is_ajax() and request.user and request.user.is_superuser:
-        return True
-    return settings.DEBUG
-
-DEBUG_TOOLBAR_PATCH_SETTINGS = True
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'settings.show_debug_toolbar',
-}
 DEBUG_TOOLBAR_PANELS = [
     'vcs_info_panel.panels.GitInfoPanel',
 ]

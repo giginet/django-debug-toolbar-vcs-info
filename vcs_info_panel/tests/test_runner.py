@@ -24,6 +24,7 @@ except ImportError:
     from django.test.simple import DjangoTestSuiteRunner as TestRunnerBase
 settings.TESTING = False
 
+
 class TestRunner(TestRunnerBase):
     def setup_test_environment(self, **kwargs):
         super(TestRunner, self).setup_test_environment(**kwargs)

@@ -1,0 +1,9 @@
+[report]
+include =
+    vcs_info_panel/*.py
+    tests/*.py
+omit =
+    src/vcs_info_panel/__init__.py
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:

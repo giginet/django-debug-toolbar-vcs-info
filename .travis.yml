@@ -4,6 +4,9 @@ python:
   - '3.4'
 install:
   - pip install "tox>=1.8"
-  - pip install coverage
+  - pip install coverage coveralls
 script:
   - tox -r
+after_success:
+  - coverage report
+  - coveralls

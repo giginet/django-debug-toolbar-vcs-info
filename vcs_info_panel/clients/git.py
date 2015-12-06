@@ -1,39 +1,46 @@
-from subprocess import CalledProcessError
-from .base import BaseVCSClient
+import datetime
+
+from .base import BaseVCSClient, returns_on_fail
 
 
 class GitClient(BaseVCSClient):
     base_command = 'git'
-    ISO_FORMAT = '%Y-%m-%d %H:%M:%S'
+    ISO_FORMAT = '%Y-%m-%d %H:%M:%S %z'
 
+    @returns_on_fail(False)
     def is_repository(self):
-        try:
-            is_work_dir = self._execute_vcs('rev-parse', '--is-inside-work-tree')
-            return is_work_dir.startswith('true')
-        except CalledProcessError:
-            return False
+        is_work_dir = self._execute_vcs('rev-parse', '--is-inside-work-tree')
+        return is_work_dir.startswith('true')
 
+    @returns_on_fail(None)
     def get_hash(self):
         return self._execute_vcs('rev-parse', 'HEAD')
 
+    @returns_on_fail(None)
     def get_short_hash(self):
         return self._execute_vcs('rev-parse', '--short', 'HEAD')
 
+    @returns_on_fail(None)
     def get_current_branch_name(self):
         return self._execute_vcs('rev-parse', '--abbrev-ref', 'HEAD')
 
+    @returns_on_fail(None)
     def get_author_name(self):
         return self._execute_vcs_show('%an')
 
+    @returns_on_fail(None)
     def get_author_email(self):
         return self._execute_vcs_show('%ae')
 
+    @returns_on_fail(None)
     def get_committer_name(self):
         return self._execute_vcs_show('%cn')
 
+    @returns_on_fail(None)
     def get_committer_email(self):
         return self._execute_vcs_show('%ce')
 
+    @returns_on_fail(None)
     def get_date(self):
         iso_format = self._execute_vcs_show('%ci')
         try:
@@ -41,6 +48,7 @@ class GitClient(BaseVCSClient):
         except:
             return None
 
+    @returns_on_fail(None)
     def get_message(self):
         return self._execute_vcs_show('%b')
 

@@ -2,6 +2,17 @@ import os
 import subprocess
 
 
+def returns_on_fail(return_value):
+    def decorator(func):
+        def inner(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except subprocess.CalledProcessError:
+                return return_value
+        return inner
+    return decorator
+
+
 class BaseVCSClient(object):
     @property
     def base_command(self):

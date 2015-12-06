@@ -91,8 +91,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'vcs_rev_panel',
-    'vcs_rev_panel.tests',
+    'vcs_info_panel',
+    'vcs_info_panel.tests',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -107,4 +107,4 @@ if django.VERSION <= (1, 3):
     # Examples: "http://foo.com/media/", "/media/".
     ADMIN_MEDIA_PREFIX = '/media/'
 
-TEST_RUNNER = 'vcs_rev_panel.tests.test_runner.TestRunner'
+TEST_RUNNER = 'vcs_info_panel.tests.test_runner.TestRunner'

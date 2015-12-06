@@ -2,7 +2,7 @@ from debug_toolbar.panels import Panel
 from django.utils.translation import ugettext_lazy as _
 
 
-class BaseVCSRevisionPanel(Panel):
+class BaseVCSInfoPanel(Panel):
     title = _('Revision')
 
     @property

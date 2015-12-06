@@ -29,7 +29,7 @@ def run_tests(base_dir=None, apps=None, verbosity=1, interactive=False):
         app_tests = [x.strip() for x in apps if x]
     else:
         app_tests = [
-            'vcs_rev_panel',
+            'vcs_info_panel',
         ]
     failures = test_runner.run_tests(app_tests)
     sys.exit(bool(failures))

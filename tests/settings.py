@@ -72,6 +72,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
@@ -91,6 +92,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'debug_toolbar',
     'vcs_info_panel',
     'vcs_info_panel.tests',
 )
@@ -98,6 +100,23 @@ INSTALLED_APPS = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+
+# django-debug-toolbar
+def show_debug_toolbar(request):
+    from django.conf import settings
+    if settings.TESTING:
+        return False
+    if not request.is_ajax() and request.user and request.user.is_superuser:
+        return True
+    return settings.DEBUG
+
+DEBUG_TOOLBAR_PATCH_SETTINGS = True
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'settings.show_debug_toolbar',
+}
+DEBUG_TOOLBAR_PANELS = [
+    'vcs_info_panel.panels.GitInfoPanel',
+]
 
 import django
 

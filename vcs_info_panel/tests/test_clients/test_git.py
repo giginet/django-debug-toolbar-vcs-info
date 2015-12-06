@@ -22,10 +22,6 @@ class GitClientTestCase(TestCase):
     def setUp(self):
         self.client = GitClient()
 
-    def _test_called_check_output(self, commands):
-        with patch('subprocess.check_output') as _check_output:
-            _check_output.assert_called_with(commands)
-
     def test_base_command(self):
         self.assertEqual(self.client.base_command, 'git')
 
@@ -43,21 +39,21 @@ class GitClientTestCase(TestCase):
         with patch('subprocess.check_output') as _check_output:
             _check_output.return_value = b'3218766'
             self.assertEqual(self.client.get_short_hash(), '3218766')
-            _check_output.assert_called_once_with(['git', 'rev-parse', 'HEAD'])
+            _check_output.assert_called_once_with(['git', 'rev-parse', '--short', 'HEAD'])
 
     @without_git_repository('git', 'rev-parse', 'HEAD')
     def test_get_short_hash_without_repository(self):
         self.assertEqual(self.client.get_short_hash(), None)
 
-    def test_get_short_hash(self):
+    def test_get_hash(self):
         with patch('subprocess.check_output') as _check_output:
-            _check_output.return_value = b'3218766'
-            self.assertEqual(self.client.get_short_hash(), '3218766')
-            _check_output.assert_called_once_with(['git', 'rev-parse', '--short', 'HEAD'])
+            _check_output.return_value = b'32187666c7b6b7af6165f38aa8dbde4922d8423a'
+            self.assertEqual(self.client.get_hash(), '32187666c7b6b7af6165f38aa8dbde4922d8423a')
+            _check_output.assert_called_once_with(['git', 'rev-parse', 'HEAD'])
 
-    @without_git_repository('git', 'rev-parse', '--short', 'HEAD')
-    def test_get_short_hash_without_repository(self):
-        self.assertEqual(self.client.get_short_hash(), None)
+    @without_git_repository('git', 'rev-parse', 'HEAD')
+    def test_get_hash_without_repository(self):
+        self.assertEqual(self.client.get_hash(), None)
 
     def test_get_current_branch_name(self):
         with patch('subprocess.check_output') as _check_output:
@@ -114,6 +110,12 @@ class GitClientTestCase(TestCase):
             _check_output.return_value = b'2015-12-04 20:29:10 +0900'
             jst = pytz.timezone('Asia/Tokyo')
             self.assertEqual(self.client.get_date(), datetime.datetime(2015, 12, 4, 20, 29, 10, tzinfo=jst))
+            _check_output.assert_called_once_with(['git', 'show', '--format=%ci', 'HEAD'])
+
+    def test_get_date_with_invalid_return(self):
+        with patch('subprocess.check_output') as _check_output:
+            _check_output.return_value = b'2015-12-04'
+            self.assertEqual(self.client.get_date(), None)
             _check_output.assert_called_once_with(['git', 'show', '--format=%ci', 'HEAD'])
 
     @without_git_repository('git', 'show', '--format=%ci', 'HEAD')

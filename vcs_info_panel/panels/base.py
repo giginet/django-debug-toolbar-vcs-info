@@ -31,7 +31,7 @@ class BaseVCSInfoPanel(Panel):
         return '{}.html'.format(self.client.base_command)
 
     def get_stats(self):
-        context = super().get_stats()
+        context = super(BaseVCSInfoPanel, self).get_stats()
         if self.client.is_repository():
             context.update({
                 'short_hash': self.client.get_short_hash(),

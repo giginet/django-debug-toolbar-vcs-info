@@ -4,7 +4,7 @@ include =
     tests/*.py
 omit =
     vcs_info_panel/__init__.py
-    vcs_info_panel/tests/test_runner.py
+    vcs_info_panel/tests/compatibility.py
 exclude_lines =
     pragma: no cover
     if __name__ == .__main__.:

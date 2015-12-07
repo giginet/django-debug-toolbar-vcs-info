@@ -1,11 +1,9 @@
-import datetime
-
+from dateutil.parser import parse
 from .base import BaseVCSClient, returns_on_fail
 
 
 class GitClient(BaseVCSClient):
     base_command = 'git'
-    ISO_FORMAT = '%Y-%m-%d %H:%M:%S %z'
 
     @returns_on_fail(False)
     def is_repository(self):
@@ -44,7 +42,7 @@ class GitClient(BaseVCSClient):
     def get_date(self):
         iso_format = self._execute_vcs_show('%ci')
         try:
-            return datetime.datetime.strptime(iso_format, self.ISO_FORMAT)
+            return parse(iso_format)
         except:
             return None
 

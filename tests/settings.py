@@ -113,4 +113,4 @@ if django.VERSION <= (1, 3):
     # Examples: "http://foo.com/media/", "/media/".
     ADMIN_MEDIA_PREFIX = '/media/'
 
-TEST_RUNNER = 'vcs_info_panel.tests.test_runner.TestRunner'
+TEST_RUNNER = 'vcs_info_panel.tests.compatibility.TestRunner'

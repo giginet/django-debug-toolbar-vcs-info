@@ -1,7 +1,7 @@
 import subprocess
 import pytz
 import datetime
-from unittest.mock import patch
+from ..compatibility import patch
 from django.test import TestCase
 from vcs_info_panel.clients.git import GitClient
 
@@ -114,7 +114,7 @@ class GitClientTestCase(TestCase):
 
     def test_get_date_with_invalid_return(self):
         with patch('subprocess.check_output') as _check_output:
-            _check_output.return_value = b'2015-12-04'
+            _check_output.return_value = b'2015-12-99'
             self.assertEqual(self.client.get_date(), None)
             _check_output.assert_called_once_with(['git', 'show', '--format=%ci', 'HEAD'])
 

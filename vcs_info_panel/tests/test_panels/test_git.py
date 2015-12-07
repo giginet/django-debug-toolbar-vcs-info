@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock
+from ..compatibility import MagicMock
 
 from django.template.loader import render_to_string
 from django.test import TestCase

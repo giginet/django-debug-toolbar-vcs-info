@@ -1,5 +1,5 @@
 import datetime
-from unittest.mock import MagicMock, PropertyMock
+from ..compatibility import MagicMock, PropertyMock
 from django.test import TestCase
 
 from vcs_info_panel.panels import BaseVCSInfoPanel

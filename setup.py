@@ -61,9 +61,9 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     package_data={
-       '': ['README.rst',
-            'requirements.txt',
-            'requirements-test.txt'],
+        '': ['README.rst',
+             'requirements.txt',
+             'requirements-test.txt'],
     },
     zip_safe=True,
     install_requires=readlist('requirements.txt'),

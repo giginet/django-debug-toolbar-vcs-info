@@ -1,3 +1,0 @@
-# django-debug-toolbar-vcs-info [![Build Status](https://travis-ci.org/giginet/django-debug-toolbar-vcs-info.svg)](https://travis-ci.org/giginet/django-debug-toolbar-vcs-info) [![Coverage Status](https://coveralls.io/repos/giginet/django-debug-toolbar-vcs-info/badge.svg?branch=master&service=github)](https://coveralls.io/github/giginet/django-debug-toolbar-vcs-info?branch=master)
-
-Under development...

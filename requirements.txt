@@ -1,0 +1,3 @@
+dateutils
+django>=1.7
+django-debug-toolbar>=1.0

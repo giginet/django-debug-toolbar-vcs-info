@@ -1,6 +1,6 @@
 # coding=utf-8
 import sys
-from setuptools import setup
+from setuptools import setup, find_packages
 
 NAME = 'django-debug-toolbar-vcs-info'
 VERSION = '1.0.0'
@@ -31,9 +31,9 @@ if sys.version_info >= (3, 0):
 setup(
     name=NAME,
     version=VERSION,
-    description=('A Django Debug Toolbar panel to show VCS info'),
-    long_description = read('README.rst'),
-    classifiers = (
+    description='A Django Debug Toolbar panel to show VCS info',
+    long_description=read('README.rst'),
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
@@ -51,20 +51,19 @@ setup(
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Topic :: Software Development :: Libraries :: Python Modules',
-    ),
-    keywords = 'django django-debug-toolbar git vcs info revision hash panel',
-    author = 'giginet',
-    author_email = 'giginet.net@gmail.com',
-    url = 'https://github.com/giginet/%s' % NAME,
-    download_url = 'https://github.com/giginet/%s/tarball/master' % NAME,
-    license = 'MIT',
-    packages = ('vcs_info_panel',),
-    package_dir = {'': 'vcs_info_panel'},
-    include_package_data = True,
-    package_data = {
-        '': ['README.rst',
-             'requirements.txt',
-             'requirements-test.txt'],
+    ],
+    keywords='django django-debug-toolbar git vcs info revision hash panel',
+    author='giginet',
+    author_email='giginet.net@gmail.com',
+    url='https://github.com/giginet/%s' % NAME,
+    download_url='https://github.com/giginet/%s/tarball/master' % NAME,
+    license='MIT',
+    packages=find_packages(),
+    include_package_data=True,
+    package_data={
+       '': ['README.rst',
+            'requirements.txt',
+            'requirements-test.txt'],
     },
     zip_safe=True,
     install_requires=readlist('requirements.txt'),

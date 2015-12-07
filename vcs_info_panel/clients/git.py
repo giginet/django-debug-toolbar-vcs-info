@@ -49,8 +49,20 @@ class GitClient(BaseVCSClient):
             return None
 
     @returns_on_fail(None)
-    def get_message(self):
+    def get_subject(self):
+        return self._execute_vcs_show('%s')
+
+    @returns_on_fail(None)
+    def get_body(self):
         return self._execute_vcs_show('%b')
+
+    @returns_on_fail(None)
+    def get_message(self):
+        subject = self.get_subject()
+        body = self.get_body()
+        if not subject or not body:
+            return None
+        return '\n'.join([subject, body])
 
     def _execute_vcs_show(self, format_text, hash='HEAD'):
         return self._execute_vcs('show', '--format={}'.format(format_text), hash).strip()

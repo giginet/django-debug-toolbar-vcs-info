@@ -124,9 +124,14 @@ class GitClientTestCase(TestCase):
 
     def test_get_message(self):
         with patch('subprocess.check_output') as _check_output:
-            _check_output.return_value = b'Fix issue'
-            self.assertEqual(self.client.get_message(), 'Fix issue')
-            _check_output.assert_called_once_with(['git', 'show', '--format=%b', 'HEAD'])
+            def check_output(commands):
+                format = commands[-2]
+                if format.endswith('%s'):
+                    return b'Fix the issue'
+                elif format.endswith('%b'):
+                    return b'This commit will fix #10'
+            _check_output.side_effect = check_output
+            self.assertEqual(self.client.get_message(), 'Fix the issue\nThis commit will fix #10')
 
     @without_git_repository('git', 'show', '--format=%b', 'HEAD')
     def test_get_message_without_repository(self):

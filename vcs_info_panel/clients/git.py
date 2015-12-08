@@ -63,4 +63,4 @@ class GitClient(BaseVCSClient):
         return '\n'.join([subject, body])
 
     def _execute_vcs_show(self, format_text, hash='HEAD'):
-        return self._execute_vcs('show', '--format={}'.format(format_text), hash).strip()
+        return self._execute_vcs('show', '--quiet', '--format={}'.format(format_text), hash).strip()

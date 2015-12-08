@@ -85,6 +85,16 @@ class GitClientTestCase(TestCase):
     def test_get_author_email_without_repository(self):
         self.assertEqual(self.client.get_author_email(), '')
 
+    def test_get_author_info(self):
+        with patch('subprocess.check_output') as _check_output:
+            _check_output.return_value = b'giginet<giginet@kawaz.org>'
+            self.assertEqual(self.client.get_author_info(), 'giginet<giginet@kawaz.org>')
+            _check_output.assert_called_once_with(['git', 'show', '--quiet', '--format=%an<%ae>', 'HEAD'])
+
+    @without_git_repository('git', 'show', '--quiet', '--format=%ae', 'HEAD')
+    def test_get_author_info_without_repository(self):
+        self.assertEqual(self.client.get_author_info(), '')
+
     def test_get_committer_name(self):
         with patch('subprocess.check_output') as _check_output:
             _check_output.return_value = b'giginet'
@@ -104,6 +114,16 @@ class GitClientTestCase(TestCase):
     @without_git_repository('git', 'show', '--quiet', '--format=%ce', 'HEAD')
     def test_get_committer_email_without_repository(self):
         self.assertEqual(self.client.get_committer_email(), '')
+
+    def test_get_committer_info(self):
+        with patch('subprocess.check_output') as _check_output:
+            _check_output.return_value = b'giginet<giginet@kawaz.org>'
+            self.assertEqual(self.client.get_committer_info(), 'giginet<giginet@kawaz.org>')
+            _check_output.assert_called_once_with(['git', 'show', '--quiet', '--format=%cn<%ce>', 'HEAD'])
+
+    @without_git_repository('git', 'show', '--quiet', '--format=%ae', 'HEAD')
+    def test_get_committer_info_without_repository(self):
+        self.assertEqual(self.client.get_committer_info(), '')
 
     def test_get_date(self):
         with patch('subprocess.check_output') as _check_output:

@@ -43,7 +43,7 @@ class GitClientTestCase(TestCase):
 
     @without_git_repository('git', 'rev-parse', 'HEAD')
     def test_get_short_hash_without_repository(self):
-        self.assertEqual(self.client.get_short_hash(), None)
+        self.assertEqual(self.client.get_short_hash(), '')
 
     def test_get_hash(self):
         with patch('subprocess.check_output') as _check_output:
@@ -53,7 +53,7 @@ class GitClientTestCase(TestCase):
 
     @without_git_repository('git', 'rev-parse', 'HEAD')
     def test_get_hash_without_repository(self):
-        self.assertEqual(self.client.get_hash(), None)
+        self.assertEqual(self.client.get_hash(), '')
 
     def test_get_current_branch_name(self):
         with patch('subprocess.check_output') as _check_output:
@@ -63,7 +63,7 @@ class GitClientTestCase(TestCase):
 
     @without_git_repository('git', 'rev-parse', '--abbrev-ref', 'HEAD')
     def test_get_current_branch_name_without_repository(self):
-        self.assertEqual(self.client.get_current_branch_name(), None)
+        self.assertEqual(self.client.get_current_branch_name(), '')
 
     def test_get_author_name(self):
         with patch('subprocess.check_output') as _check_output:
@@ -73,7 +73,7 @@ class GitClientTestCase(TestCase):
 
     @without_git_repository('git', 'show', '--quiet', '--format=%an', 'HEAD')
     def test_get_author_name_without_repository(self):
-        self.assertEqual(self.client.get_author_email(), None)
+        self.assertEqual(self.client.get_author_email(), '')
 
     def test_get_author_email(self):
         with patch('subprocess.check_output') as _check_output:
@@ -83,7 +83,7 @@ class GitClientTestCase(TestCase):
 
     @without_git_repository('git', 'show', '--quiet', '--format=%ae', 'HEAD')
     def test_get_author_email_without_repository(self):
-        self.assertEqual(self.client.get_author_email(), None)
+        self.assertEqual(self.client.get_author_email(), '')
 
     def test_get_committer_name(self):
         with patch('subprocess.check_output') as _check_output:
@@ -93,7 +93,7 @@ class GitClientTestCase(TestCase):
 
     @without_git_repository('git', 'show', '--quiet', '--format=%cn', 'HEAD')
     def test_get_committer_name_without_repository(self):
-        self.assertEqual(self.client.get_committer_email(), None)
+        self.assertEqual(self.client.get_committer_email(), '')
 
     def test_get_committer_email(self):
         with patch('subprocess.check_output') as _check_output:
@@ -103,7 +103,7 @@ class GitClientTestCase(TestCase):
 
     @without_git_repository('git', 'show', '--quiet', '--format=%ce', 'HEAD')
     def test_get_committer_email_without_repository(self):
-        self.assertEqual(self.client.get_committer_email(), None)
+        self.assertEqual(self.client.get_committer_email(), '')
 
     def test_get_date(self):
         with patch('subprocess.check_output') as _check_output:
@@ -115,7 +115,7 @@ class GitClientTestCase(TestCase):
     def test_get_date_with_invalid_return(self):
         with patch('subprocess.check_output') as _check_output:
             _check_output.return_value = b'2015-12-99'
-            self.assertEqual(self.client.get_date(), None)
+            self.assertEqual(self.client.get_date(), '')
             _check_output.assert_called_once_with(['git', 'show', '--quiet', '--format=%ci', 'HEAD'])
 
     @without_git_repository('git', 'show', '--quiet', '--format=%ci', 'HEAD')
@@ -133,6 +133,17 @@ class GitClientTestCase(TestCase):
             _check_output.side_effect = check_output
             self.assertEqual(self.client.get_message(), 'Fix the issue\nThis commit will fix #10')
 
+    def test_get_message_with_invalid_body(self):
+        with patch('subprocess.check_output') as _check_output:
+            def check_output(commands):
+                format = commands[-2]
+                if format.endswith('%s'):
+                    return b'Fix the issue'
+                elif format.endswith('%b'):
+                    raise subprocess.CalledProcessError(128, ['git', 'show'])
+            _check_output.side_effect = check_output
+            self.assertEqual(self.client.get_message(), 'Fix the issue')
+
     @without_git_repository('git', 'show', '--quiet', '--format=%b', 'HEAD')
     def test_get_message_without_repository(self):
-        self.assertEqual(self.client.get_message(), None)
+        self.assertEqual(self.client.get_message(), '')

@@ -28,7 +28,7 @@ Use pip_ ::
 
 .. _pip:  https://pypi.python.org/pypi/pip
 
-Add ``vcs_info_panel`` into `INSTALL_APPS` in `settings.py` file
+Add ``vcs_info_panel`` into ``INSTALL_APPS`` in ``settings.py`` file
 
 .. code:: python
 

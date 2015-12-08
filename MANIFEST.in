@@ -1,3 +1,5 @@
 include README.rst
 include requirements.txt
 include requirements-test.txt
+recursive-include vcs_info_panel/locale *.po *.mo
+recursive-include vcs_info_panel/templates *.html

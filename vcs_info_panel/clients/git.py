@@ -31,12 +31,20 @@ class GitClient(BaseVCSClient):
         return self._execute_vcs_show('%ae')
 
     @returns_on_fail(None)
+    def get_author_info(self):
+        return self._execute_vcs_show('%an<%ae>')
+
+    @returns_on_fail(None)
     def get_committer_name(self):
         return self._execute_vcs_show('%cn')
 
     @returns_on_fail(None)
     def get_committer_email(self):
         return self._execute_vcs_show('%ce')
+
+    @returns_on_fail(None)
+    def get_committer_info(self):
+        return self._execute_vcs_show('%cn<%ce>')
 
     @returns_on_fail(None)
     def get_date(self):
@@ -58,9 +66,9 @@ class GitClient(BaseVCSClient):
     def get_message(self):
         subject = self.get_subject()
         body = self.get_body()
-        if not subject or not body:
-            return None
+        if not body:
+            return subject
         return '\n'.join([subject, body])
 
     def _execute_vcs_show(self, format_text, hash='HEAD'):
-        return self._execute_vcs('show', '--format={}'.format(format_text), hash).strip()
+        return self._execute_vcs('show', '--quiet', '--format={}'.format(format_text), hash).strip()

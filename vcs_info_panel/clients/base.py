@@ -36,10 +36,16 @@ class BaseVCSClient(object):
     def get_author_email(self):
         raise NotImplementedError
 
+    def get_author_info(self):
+        raise NotImplementedError
+
     def get_committer_name(self):
         raise NotImplementedError
 
     def get_committer_email(self):
+        raise NotImplementedError
+
+    def get_committer_info(self):
         raise NotImplementedError
 
     def get_date(self):

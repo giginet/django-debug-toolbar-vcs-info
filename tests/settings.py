@@ -105,12 +105,4 @@ DEBUG_TOOLBAR_PANELS = [
     'vcs_info_panel.panels.GitInfoPanel',
 ]
 
-import django
-
-if django.VERSION <= (1, 3):
-    # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-    # trailing slash.
-    # Examples: "http://foo.com/media/", "/media/".
-    ADMIN_MEDIA_PREFIX = '/media/'
-
 TEST_RUNNER = 'vcs_info_panel.tests.compatibility.TestRunner'

@@ -31,12 +31,20 @@ class GitClient(BaseVCSClient):
         return self._execute_vcs_show('%ae')
 
     @returns_on_fail(None)
+    def get_author_info(self):
+        return self._execute_vcs_show('%an<%ae>')
+
+    @returns_on_fail(None)
     def get_committer_name(self):
         return self._execute_vcs_show('%cn')
 
     @returns_on_fail(None)
     def get_committer_email(self):
         return self._execute_vcs_show('%ce')
+
+    @returns_on_fail(None)
+    def get_committer_info(self):
+        return self._execute_vcs_show('%cn<%ce>')
 
     @returns_on_fail(None)
     def get_date(self):

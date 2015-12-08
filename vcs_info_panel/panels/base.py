@@ -36,22 +36,10 @@ class BaseVCSInfoPanel(Panel):
             context.update({
                 'short_hash': self.client.get_short_hash(),
                 'hash': self.client.get_hash(),
-                'author': self._get_pretty_author(),
-                'committer': self._get_pretty_committer(),
+                'author': self.client.get_author_info(),
+                'committer': self.client.get_committer_info(),
                 'message': self.client.get_message(),
                 'updated_at': self.client.get_date(),
                 'branch_name': self.client.get_current_branch_name()
             })
         return context
-
-    def _get_pretty_author(self):
-        return self._pretty_name(self.client.get_author_name(),
-                                 self.client.get_author_email())
-
-    def _get_pretty_committer(self):
-        return self._pretty_name(self.client.get_committer_name(),
-                                 self.client.get_committer_email())
-
-    @staticmethod
-    def _pretty_name(name, email):
-        return '{}<{}>'.format(name, email)

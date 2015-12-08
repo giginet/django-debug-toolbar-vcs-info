@@ -91,7 +91,7 @@ class GitClientTestCase(TestCase):
             self.assertEqual(self.client.get_author_info(), 'giginet<giginet@kawaz.org>')
             _check_output.assert_called_once_with(['git', 'show', '--quiet', '--format=%an<%ae>', 'HEAD'])
 
-    @without_git_repository('git', 'show', '--quiet', '--format=%ae', 'HEAD')
+    @without_git_repository('git', 'show', '--quiet', '--format=%an<%ae>', 'HEAD')
     def test_get_author_info_without_repository(self):
         self.assertEqual(self.client.get_author_info(), None)
 
@@ -121,7 +121,7 @@ class GitClientTestCase(TestCase):
             self.assertEqual(self.client.get_committer_info(), 'giginet<giginet@kawaz.org>')
             _check_output.assert_called_once_with(['git', 'show', '--quiet', '--format=%cn<%ce>', 'HEAD'])
 
-    @without_git_repository('git', 'show', '--quiet', '--format=%ae', 'HEAD')
+    @without_git_repository('git', 'show', '--quiet', '--format=%cn<%ce>', 'HEAD')
     def test_get_committer_info_without_repository(self):
         self.assertEqual(self.client.get_committer_info(), None)
 

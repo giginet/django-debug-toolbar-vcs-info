@@ -9,7 +9,7 @@ django-debug-toolbar-vcs-info
 
 
 A `Django Debug Toolbar 
-<https://github.com/django-debug-toolbar/django-debug-toolbar>`_. panel to show VCS info
+<https://github.com/django-debug-toolbar/django-debug-toolbar>`_ panel to show VCS info
 
 .. image:: https://raw.githubusercontent.com/giginet/django-debug-toolbar-vcs-info/master/images/vcs_info_panel.png
 

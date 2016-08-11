@@ -3,7 +3,7 @@ import sys
 from setuptools import setup, find_packages
 
 NAME = 'django-debug-toolbar-vcs-info'
-VERSION = '1.1.0'
+VERSION = '1.2.0'
 
 
 def read(filename):

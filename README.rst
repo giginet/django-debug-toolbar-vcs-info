@@ -16,7 +16,7 @@ A `Django Debug Toolbar
 Supported python versions
     2.6, 3.2, 3.3, 3.4, 3.5
 Supported django versions
-    1.7 - 1.9
+    1.7 - 1.10
 Supported VCS
     git
 

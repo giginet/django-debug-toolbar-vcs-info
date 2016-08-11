@@ -1,3 +1,4 @@
+import django
 try:
     from django.conf.urls import *
 except ImportError:
@@ -7,14 +8,11 @@ except ImportError:
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Example:
-    # (r'^tests/', include('tests.foo.urls')),
 
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+def _patterns():
+    if django.VERSION >= (1, 9):
+        return []
+    else:
+        return patterns('',)
 
-    # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
-)
+urlpatterns = _patterns()

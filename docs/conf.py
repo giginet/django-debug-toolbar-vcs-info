@@ -55,9 +55,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'vcs_info_panel'
-copyright = '2016, Author'
-author = 'Author'
+project = 'django-debug-toolbar-vcs-info-panel'
+copyright = '2016, giginet'
+author = 'giginet'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

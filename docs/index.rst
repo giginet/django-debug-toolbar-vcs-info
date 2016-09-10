@@ -1,17 +1,68 @@
-.. vcs_info_panel documentation master file, created by
-   sphinx-quickstart on Mon Sep  5 05:16:42 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+django-debug-toolbar-vcs-info
+==============================
 
-Welcome to vcs_info_panel's documentation!
-==========================================
+.. image:: https://travis-ci.org/giginet/django-debug-toolbar-vcs-info.svg?branch=master
+    :target: https://travis-ci.org/giginet/django-debug-toolbar-vcs-info
+.. image:: https://coveralls.io/repos/giginet/django-debug-toolbar-vcs-info/badge.svg?branch=master&service=github
+    :target: https://coveralls.io/github/giginet/django-debug-toolbar-vcs-info?branch=master
 
-Contents:
+
+
+A `Django Debug Toolbar 
+<https://github.com/django-debug-toolbar/django-debug-toolbar>`_ panel to show VCS info
+
+.. image:: https://raw.githubusercontent.com/giginet/django-debug-toolbar-vcs-info/master/images/vcs_info_panel.png
+
+Supported python versions
+    2.6, 3.2, 3.3, 3.4, 3.5
+Supported django versions
+    1.7 - 1.10
+Supported VCS
+    git
 
 .. toctree::
-   :maxdepth: 4
+  :maxdepth: 2
 
-   vcs_info_panel
+  vcs
+
+  API Reference <modules>
+
+Installation
+------------------------
+
+Use pip_ ::
+
+    $ pip install django-debug-toolbar-vcs-info
+
+.. _pip:  https://pypi.python.org/pypi/pip
+
+Add ``vcs_info_panel`` into ``INSTALL_APPS`` in ``settings.py`` file
+
+.. code:: python
+
+  INSTALLED_APPS += (
+      'vcs_info_panel',
+  )
+
+Add the panel you want to use. currently, you can use ``GitInfoPanel`` only.
+
+
+.. code:: python
+
+  DEBUG_TOOLBAR_PANELS = (
+    ...
+    'vcs_info_panel.panels.GitInfoPanel',
+  )
+
+Author
+-------------------
+
+giginet <giginet.net@gmail.com>
+
+LICENSE
+-------------------------
+
+MIT License
 
 
 Indices and tables
@@ -20,4 +71,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

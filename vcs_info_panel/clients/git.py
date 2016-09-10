@@ -3,6 +3,7 @@ from .base import BaseVCSClient, returns_on_fail
 
 
 class GitClient(BaseVCSClient):
+    """Git Client"""
     base_command = 'git'
 
     @returns_on_fail(False)
